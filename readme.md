@@ -198,7 +198,7 @@ pub fn add_one<T: io::Write>(digits: &[u8], output: &mut T) -> Result<(), io::Er
         let new_digit = if minus {
             if prefix.is_empty() && trailing.is_empty() && digit == b'1' {
                 // -1为特例：结果不再是负数，为0。
-                return output.write_all(b"0");
+                return output.write_all(b"0");    //写入这个output 可变泛型指针
             }
             output.write_all(b"-")?;// 负数写会负符号
             digit - 1
@@ -245,7 +245,13 @@ pub fn add_one<T: io::Write>(digits: &[u8], output: &mut T) -> Result<(), io::Er
 
 #### test
 
-测试代码，`#[test]`标记
+测试代码，可通过
+
+```
+cargo test
+``` 
+
+测试 具有`#[test]`标志的函数
 
 ```rs
 #[test]
