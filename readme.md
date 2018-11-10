@@ -9,7 +9,7 @@
 [size-img]: https://packagephobia.now.sh/badge?p=Name
 [size]: https://packagephobia.now.sh/result?p=Name
 
-「 rust , 加一库 」
+「 rust , 加一~~库~~箱 」
 
 ---
 
@@ -245,7 +245,7 @@ pub fn add_one<T: io::Write>(digits: &[u8], output: &mut T) -> Result<(), io::Er
 
 #### test
 
-测试代码，可通过
+- [ ] 测试代码，可通过
 
 ```
 cargo test
