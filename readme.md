@@ -77,7 +77,7 @@ repository = "https://github.com/o2sh/add-one"
 
 - [use **](https://rustwiki.org/zh-CN/rust-by-example/mod/use.html) use 声明可以将一个完整的路径绑定到一个新的名字，从而更容易访问。
 
-```rs
+``` rust
 extern crate add_one; // 声明 crate, 类似导入
 
 use add_one::add_one;
@@ -278,7 +278,7 @@ cargo test
 
 测试 具有`#[test]`标志的函数
 
-```rs
+``` rust
 #[test]
 fn add_one_test_integer() { // 测试整数
     fn test(num: &str, result: &str) {
