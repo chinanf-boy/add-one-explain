@@ -134,7 +134,7 @@ fn main() {
 
 > 基本使用md语法
 
-``` rs
+``` rust
 //! This add-one crate is meant to give you the opportunity to add one to a number.
 //! 
 //! # Examples
@@ -165,7 +165,7 @@ fn main() {
 
 #### 正文
 
-``` rs
+``` rust
 use std::io; // 使用内置库
 
 // 1. pub, 说明它是公开的，(不像Go那样的，大写就行)
