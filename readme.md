@@ -25,7 +25,7 @@
 [commit] | ⏰ 2018-10-06 | ![version] | [源码解释][source]
 
 [commit]: https://github.com/o2sh/add-one/tree/31b1f696840c5e32e2a7c9d85c56ffead9c418bc
-[version]: https://img.shields.io/npm/v/add-one.svg
+[version]: https://img.shields.io/github/last-commit/o2sh/add-one.svg
 
 <!-- doc-templite END generated -->
 
