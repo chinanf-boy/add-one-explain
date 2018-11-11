@@ -9,11 +9,11 @@
 [size-img]: https://packagephobia.now.sh/badge?p=Name
 [size]: https://packagephobia.now.sh/result?p=Name
 
-「 rust , 加一~~库~~箱 」
+「 rust , 加一~~库~~箱  」
 
 ---
 
-## explain 🀄️
+## explain ✅
 
 <!-- doc-templite START generated -->
 <!-- time = '2018-10-06' -->
@@ -40,6 +40,21 @@
 ---
 
 本库，是一个很好的入门crate制造例子
+
+## 目录
+
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+<!-- END doctoc  -->
+
+- [Cargo.toml](#cargotoml)
+- [src/main.rs](#srcmainrs)
+- [src/lib.rs](#srclibrs)
+  - [docs.rs](#docsrs)
+  - [正文](#%E6%AD%A3%E6%96%87)
+  - [test](#test)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
 ### Cargo.toml
 
@@ -219,20 +234,28 @@ pub fn add_one<T: io::Write>(digits: &[u8], output: &mut T) -> Result<(), io::Er
     for _ in 0..trailing.len() {
         output.write_all(if minus { b"9" } else { b"0" })?;
     }
-    if minus && z == 0 && digits.len() > 1 {
+    if minus && z == 0 && digits.len() > 1 { //即是负数,
+        // 应用于，例子 "-0.76987965465" => "0.23012034535"
         // 写小数
         output.write_all(&digits[0..1])?;
-        let mut iter = digits[1..].iter().rev().peekable();
+        let mut iter = digits[1..].iter().rev().peekable(); // 反转迭代器，并 开启瞧一瞧 peek
         let mut decimal_digits = Vec::new();
-        while let Some(&b'0') = iter.peek() {
-            decimal_digits.push(*iter.next().unwrap());
+        while let Some(&b'0') = iter.peek() { // peek 可以查看下一个是否为0值，但不推进迭代器
+            decimal_digits.push(*iter.next().unwrap()); // 是，就加上
         }
-        if let Some(_) = iter.peek() {
-            decimal_digits.push(b'9' - *iter.next().unwrap() + b'0' + 1);
+        if let Some(_) = iter.peek() { // 一次
+            // 按例子来看，上面被反转，先是5
+            decimal_digits.push(b'9' - *iter.next().unwrap() + b'0' + 1); 
+            // 9-`5`+0+1 = 5
         }
-        while let Some(_) = iter.peek() {
+        while let Some(_) = iter.peek() { // 多次
+            //再然后是 6，4 ...
             decimal_digits.push(b'9' - *iter.next().unwrap() + b'0');
+            // 9-`6`+0 = 3
+            // 9-`4`+0 + 5
+            // ...
         }
+        // 在把结果数组 反转，复制，合成u8数组，再变slice，写到 output
         output.write_all(decimal_digits.iter().rev().cloned().collect::<Vec<u8>>().as_slice())?;
     } else {
         output.write_all(&digits[z..])?;// 打印十进制后的字符
@@ -243,9 +266,11 @@ pub fn add_one<T: io::Write>(digits: &[u8], output: &mut T) -> Result<(), io::Er
 
 - `?运算符`-[rust-by-example 中文](https://rustwiki.org/zh-CN/rust-by-example/std/result/question_mark.html)
 
+- [**.unwrap() 使用 `unwrap`，当接收到 `None` 时返回一个 `panic`。](https://rustwiki.org/zh-CN/rust-by-example/error/option_unwrap.html)
+
 #### test
 
-- [ ] 测试代码，可通过
+- 测试代码，可通过
 
 ```
 cargo test
@@ -255,10 +280,10 @@ cargo test
 
 ```rs
 #[test]
-fn add_one_test_integer() {
+fn add_one_test_integer() { // 测试整数
     fn test(num: &str, result: &str) {
-        use std::str::from_utf8;
-        let mut s = Vec::new();
+        use std::str::from_utf8; //
+        let mut s = Vec::new(); // 可变数组
         add_one(num.as_bytes(), &mut s).unwrap();
         assert_eq!(from_utf8(&s).unwrap(), result);
     }
@@ -296,7 +321,7 @@ fn add_one_test_integer() {
 }
 
 #[test]
-fn add_one_test_float() {
+fn add_one_test_float() { // 测试浮点数
     fn test(num: &str, result: &str) {
         use std::str::from_utf8;
         let mut s = Vec::new();
